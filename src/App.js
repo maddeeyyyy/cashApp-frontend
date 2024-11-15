@@ -1,23 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css"
+import Home from './pages/home/home';
+import Payments from './pages/payments/payments';
+import Banking from './pages/banking/banking';
+import Boost from './pages/boost/boost';
+import Investing from './pages/investing/investing';
+import Policy from './pages/policy/policy';
+import { useEffect, useState } from "react";
+
 
 function App() {
+
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 1200);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth < 1200);
+    };
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []); 
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <Home/>
+      <Payments/>
+      <Banking/>
+      <Boost/>
+      <Investing/>
+      {isSmallScreen && <Policy/>}
     </div>
   );
 }
